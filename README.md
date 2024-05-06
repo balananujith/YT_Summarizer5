@@ -9,13 +9,13 @@ Our tool utilizes the YouTube Transcript API to extract the transcript text from
 ## How to Run
 
 1. Clone the repository to your local machine:
-   '''bash
+   ```bash
    git clone https://github.com/balananujith/YT_Summarizer5.git
 2. Navigate to the project directory:
-   '''bash
+    ```bash
    cd YT_Summarizer5.git
 3. Install the required dependencies
-   '''bash
+    ```bash
     pip install -r requirements.txt
 4. Set up your environment variables:
 - Create a `.env` file in the project root directory.
@@ -24,7 +24,7 @@ Our tool utilizes the YouTube Transcript API to extract the transcript text from
   GOOGLE_API_KEY=your_google_api_key
 
 5. Run the Streamlit app:
-   '''bash
+    ```bash
    streamlit run app.py
 
 ## How to Contribute
@@ -34,14 +34,14 @@ Welcome contributions from the community to enhance the functionality and usabil
 1. Fork the repository by clicking the "Fork" button on the top right of this page.
 2. Clone your forked repository to your local machine.
 3. Create a new branch to work on your changes:
-   '''bash
+    ```bash
    git checkout -b feature/new-feature
 4. Make your changes and commit them:
-   '''bash
+    ```bash
    git add .
    git commit -m "Add new feature"
 6. Push your changes to your fork:
-   '''bash
+    ```bash
    git push origin feature/new-feature
 7. Finally, submit a pull request from your forked repository on GitHub.
 

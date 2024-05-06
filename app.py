@@ -4,11 +4,18 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import os
 import google.generativeai as genai
 
-load_dotenv()  # Load all the environment variables
+# Load environment variables
+load_dotenv()
 
-prompt = """You are Youtube Video Summarizer. You will be taking the transcript text and summarizing the entire video and providing the important summary in points within 250 words. Please provide the summary of the text given here:"""
+# Configure Google Generative AI
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# Getting transcript details from YouTube videos
+# Welcome prompt
+prompt = """
+Welcome to our YouTube Video Summarizer tool! Our goal is to condense the transcript of any video into a concise summary, highlighting the key points in under 250 words. We're here to make sure you get the gist of the video without having to go through the entire transcript.
+"""
+
+# Function to extract transcript text from YouTube video
 def extract_transcript_details(youtube_video_url):
     try:
         video_id = youtube_video_url.split("=")[1]
@@ -17,30 +24,46 @@ def extract_transcript_details(youtube_video_url):
         transcript = ""
         for i in transcript_text:
             transcript += " " + i["text"]
+
         return transcript
     except Exception as e:
         raise e
 
-
-# Getting the summary based on Prompt from Google Gemini Pro
+# Function to generate detailed notes using Google Generative AI
 def generate_gemini_content(transcript_text, prompt):
-    model = genai.GenerativeModel("gemini-pro", apikey=os.getenv("GOOGLE_API_KEY"))
-    response = model.generate_context(prompt + transcript_text)
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt + transcript_text)
     return response.text
 
+# Streamlit app
+def main():
+    st.title("YouTube Transcript to Detailed Notes Converter")
 
-st.title("Youtube Transcript to Detailed Notes Converter")
-youtube_link = st.text_input("Enter Youtube Video Link:")
+    # Input field for YouTube video link
+    youtube_link = st.text_input("Enter YouTube Video Link:")
 
-if youtube_link:
-    video_id = youtube_link.split("=")[1]
-    print(video_id)
-    st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
+    # Display YouTube video thumbnail
+    if youtube_link:
+        video_id = youtube_link.split("=")[1]
+        st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
 
-if st.button("Get Detailed Notes"):
-    transcript_text = extract_transcript_details(youtube_link)
+    # Button to trigger summarization process
+    if st.button("Get Detailed Notes"):
+        if youtube_link:
+            # Extract transcript from YouTube video
+            transcript_text = extract_transcript_details(youtube_link)
 
-    if transcript_text:
-        summary = generate_gemini_content(transcript_text, prompt)
-        st.markdown("## Detailed Notes:")
-        st.write(summary)
+            if transcript_text:
+                # Generate detailed notes using Google Generative AI
+                summary = generate_gemini_content(transcript_text, prompt)
+
+                # Display the summary
+                st.markdown("## Detailed Notes:")
+                st.write(summary)
+            else:
+                st.error("Failed to retrieve transcript.")
+        else:
+            st.warning("Please enter a YouTube video link.")
+
+if __name__ == "__main__":
+    main()

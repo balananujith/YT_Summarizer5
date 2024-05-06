@@ -45,6 +45,8 @@ Welcome contributions from the community to enhance the functionality and usabil
    git push origin feature/new-feature
 7. Finally, submit a pull request from your forked repository on GitHub.
 
+## Few Snapshots of my Project
+![Untitled20](https://github.com/balananujith/YT_Summarizer5/assets/118455793/ee9e4e21-a374-473c-b63a-26972277e134)
 
-
-
+![Untitled21](https://github.com/balananujith/YT_Summarizer5/assets/118455793/f0d9b207-43fe-4386-b7dc-2686eba8cbcf)
+![Untitled22](https://github.com/balananujith/YT_Summarizer5/assets/118455793/21f1e371-d6f7-4b79-bc5a-15ac52f6597f)
